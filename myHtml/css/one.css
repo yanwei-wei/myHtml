@@ -1,0 +1,45 @@
+.btnArr1{
+	/* width: 100%; */
+	font-size: x-small;
+}
+.btnsrc{
+	width: 25%;
+	margin: 0px;
+	padding-top: 20px ;
+	padding-bottom: 25px ;
+	padding-left: 5%;
+	position:relative;
+	float: left;
+}
+.mokuai_text{
+	/* margin: 10px 0px; */
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+.mokuai_more{
+	position:relative;
+	float: right;
+	top:5px;
+}
+/* 每个图片和介绍分成一个区域.把每个区域width属性设成想要的样式,比如一排2个,就设成40,加上边界.比如一排3个,就设成30,加上边界.
+区域里每个img标签加一个class,设置width 100% 用来控制图片完整显示 */
+.mokuai_img_big{
+	width: 90%;
+	margin: 5%;
+/* 	position:relative;
+	float: left; */
+}
+.mokuai_img_little{
+	width: 40%;
+	margin-left: 5%;
+	margin-right: 5%;
+/* 	margin-top: 5%; */
+	margin-bottom: 10px;
+	position:relative;
+	float: left;
+}
+.mokuai_img{
+	width: 100%;
+}

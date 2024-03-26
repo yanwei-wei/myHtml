@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<!--
+	注释:
+	head是网页标题的头部标记
+	title是网页的标题
+	body是网页内容的标签
+	h1-h6是6个标题
+	p是指段落
+-->
+<!--
+	background-color: #d2b48c; 背景颜色
+	margin-left: 20%;		   左右边距
+	margin-right: 20%;
+	border: 1px dotted gray;   边框线以及边框线的背景颜色
+	padding: 10px 10px 10px 10px; 在页面主体周围创建填充
+	font-family: sans-serif;	页面的字体
+-->
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<title>身份证信息绑定</title>
+	<script src="../js/ziku.js"></script>
+	<!-- <style >
+		/*div{
+			font-size:larger;
+			text-align: center;
+		}*/
+	</style> -->
+</head>
+<body>
+	<div>
+		<h3>姓名：</h3>
+		<input id = "name" type="text" name="Name" value="" /><br />
+		<p id = name_warn></p>
+		<h3>身份证：</h3>
+		<input id = "idcard" type="text" name="IDCard" value="" /><br /><br />
+		<p id = id_warn></p>
+    	<button class="ui-btn" onclick="bind()">绑定</button>
+	</div>
+	<script type="text/javascript">
+		var name_correct = false;
+		var idcard_correct = false;
+		//0代表未成年，1代表成年
+		var IsAdult = 0;
+	    //权加检验
+	    function checkVI(str){
+	    	var PowerCodeArray = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10,5, 8, 4, 2 ];
+			var VeriyCodeArray = ["1", "0","X", "9", "8", "7", "6","5", "4", "3", "2" ];
+			var id_18 = str.charAt(17);
+			if (id_18 == "x"){
+				id_18 = "X";
+			}
+			//[[检验身份证合法性]]
+			var n = 0;
+			var isum = 0;
+			var c = 0;
+			for (var i=0;i<17;i++){
+				n = Number(str.charAt(i));
+				c = n * PowerCodeArray[i];
+				isum = isum + c;
+			}
+			if (VeriyCodeArray[isum % 11] == id_18)
+			{
+				console.log("权加校验成功");
+				idcard_correct = true
+			}
+				
+			else
+			{
+				console.log("权加校验失败");
+				return
+			}
+	    }
+	    //年龄检验
+		function checkAge(str){
+			var year = Number(str.substring(6, 10));
+			console.log("身份证年"+year);
+		    var month = Number(str.substring(10, 12));
+			console.log("身份证月"+month);
+		    var day = Number(str.substring(12, 14));
+		    console.log("身份证日"+day);
+		    if (year < 1900 || year > 2100 || month >12 || month < 1)
+		    {
+		    	idcard_correct = false;
+		    	return
+		    }
+		    //月份天数表
+		    var month_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+		    if((year % 4 == 0 && year % 100 != 0)||(year % 400 == 0))
+		    {
+		    	console.log("闰年")
+		        month_days[1] = 29;
+		    }
+
+		    if (day > month_days[month-1] || day < 1)
+		    {
+		    	idcard_correct = false;
+		    	return
+		    }
+		    var time = new Date();
+		    var now_year = Number(time.getFullYear());
+		    console.log("当前年份"+now_year);
+		    var now_month = Number(time.getMonth())+1;
+		    console.log("当前月份"+now_month);
+		    var now_day = Number(time.getDate());
+		    console.log("当前日期"+now_day);
+
+		    if (now_year - year < 18)
+		    {
+		    	console.log("年份不足18");
+		    	IsAdult = 0;
+		    }
+		    else if (now_year - year == 18)
+		    {
+		    	if (now_month - month > 0)
+		    	{
+		    		IsAdult = 1;
+		    	}
+		    	else if (now_month - month == 0)
+		    	{
+		    		if (now_day - day >= 0)
+		    		{
+		    			IsAdult = 1;
+		    		}
+		    		else
+		    		{
+		    			IsAdult = 0;
+		    		}
+		    		
+		    	}
+		    	else
+		    	{
+		    		IsAdult = 0;
+		    	}
+		    }
+		    else
+		    {
+		    	console.log("年份大于18");
+		    	IsAdult = 1;
+		    }
+		}
+	    //身份证加权校验
+	    function checkIdCardisCorrect(str){
+	    	checkVI(str);
+			checkAge(str);
+	    }
+	    //检测姓名是不是全是汉字
+	    function CheckNameAllChinese(str){
+			var re=/[^\u4e00-\u9fa5]/; 
+			if(re.test(str)) return false; 
+			return true;
+		}
+	    function checkName(str){
+	    	if(str.length < 2 || str.length >10)
+			{
+				console.log("名字小于2或者大于10");
+			}
+			else
+			{
+				var allchinese = CheckNameAllChinese(str);
+				if (allchinese == true)
+				{
+					var zikuArr = getZiku();
+					console.log("zikuArr"+zikuArr.length);
+					var index = 0;
+					for (var i = 0;i<zikuArr.length;i++)
+					{
+						index = str.indexOf(zikuArr[i]);
+						if (index != -1)
+						{
+							console.log("敏感字符第"+i+"个");
+							break;
+						}
+					}
+					if (index != -1)
+					{
+						console.log("有敏感字符");		
+					}
+					else{
+						name_correct = true;
+					}
+				}
+				else
+				{
+					console.log("不全是汉字")
+				}
+				
+			}
+	    }
+	    function checkIdCard(str){
+	    	if(str.length == 18)
+	    	{
+	    		var card_17 = str.substring(0, 17);
+	    		var card_18 = str.charAt(17);
+	    		var num = [0,1,2,3,4,5,6,7,8,9];
+		    	if(/^[0-9]+$/.test(card_17)){
+		    		console.log("前17位都是数字");
+		    		if((str.charAt(17) == "x") || (str.charAt(17) == "X"))
+		    		{
+		    			console.log("第18位是x");
+		    			checkIdCardisCorrect(str);
+		    			return
+		    		}
+		    		for (var i =0;i<10;i++)
+		    		{
+		    			if (Number(str.charAt(17)) == num[i])
+		    			{
+		    				console.log("第18位是数字");
+		    				checkIdCardisCorrect(str);
+		    			}
+		    		}
+
+				}
+				else
+				{
+					console.log("前17位不都是数字");
+				}
+	    	}
+	    	else
+	    	{
+	    		console.log("身份证号码不是18位");
+	    	}
+	    	
+	    }
+		function bind(){
+			var value_name = document.getElementById("name").value;
+			console.log("value_name"+value_name);
+			var value_idcard = document.getElementById("idcard").value;
+			console.log("value_idcard"+value_idcard);
+			checkName(value_name);
+			checkIdCard(value_idcard);
+			if(name_correct == true && idcard_correct == true)
+			{
+				console.log("身份证"+value_idcard+"是否成年"+IsAdult);
+				document.getElementById("name_warn").innerHTML="";
+				document.getElementById("id_warn").innerHTML="";
+				// var url = "http://www.baidu.com";
+				// var parms = ["idcard" = value_idcard,
+				// 	"IsAdult" = IsAdult];
+		  //       var request = new XMLHttpRequest();
+		  //       request.open("POST", url);
+		  //       request.send(value_idcard);
+			}
+			else if (name_correct == false && idcard_correct == false){
+				document.getElementById("name_warn").innerHTML="您输入的姓名不符合要求，最少2个汉字，最多10个";
+				document.getElementById("id_warn").innerHTML="您输入的身份证信息不符合要求";
+			}
+			else if (name_correct == false || idcard_correct == false)
+			{
+				if (name_correct ==false)
+				{
+					document.getElementById("name_warn").innerHTML="您输入的姓名不符合要求，最少2个汉字，最多10个";
+				}
+				else
+				{
+					document.getElementById("id_warn").innerHTML="您输入的身份证信息不符合要求";
+				}
+			}
+		}
+		
+	</script>
+</body>
+</html>

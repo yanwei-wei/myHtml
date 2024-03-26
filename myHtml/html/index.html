@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="../js/mui.min.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+</head>
+<body>
+	<!-- 主页面容器 -->
+	<div class="mui-inner-wrap">
+		<!-- 菜单容器 -->
+	<!-- 	<aside class="mui-off-canvas-left" id="offCanvasSide">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+	
+					
+				</div>
+			</div>
+		</aside> -->
+		<!-- 主页面标题 -->
+		<!-- <header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left" href="#offCanvasSide"></a>
+			<h1 class="mui-title">标题</h1>
+		</header> -->
+		<nav class="mui-bar mui-bar-tab">
+			<p class="mui-tab-item mui-active" id="home">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</p>
+			
+			<p class="mui-tab-item" id="phone">
+				<span class="mui-icon mui-icon-phone"></span>
+				<span class="mui-tab-label" >电话</span>
+			</p>
+			
+			<p class="mui-tab-item" id="mail">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">邮件</span>
+			</p>
+			<p class="mui-tab-item" id="set">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">设置</span>
+			</p>
+		</nav>
+		<!-- 主页面内容容器 -->
+		<div class="mui-content mui-scroll-wrapper">
+			
+		</div>
+	 <div class="mui-off-canvas-backdrop"></div>
+	</div>
+	<script type="text/javascript">
+		mui.init();
+		console.log("init");
+		var subpages = ['one.html','FillCard.html','three.html','four.html'];
+		var sub_styles = {
+			top:'0px',
+			bottom:'50px'
+		};
+		// 存储是否是第一次打开页面的标志位
+		var isFirstOpen = {};
+		mui.plusReady(function () {
+			var nowWindow = plus.webview.currentWebview();
+			console.log("plusReady",nowWindow);
+		    for(var i=0;i<4;i++)
+			{
+				var temp ={};
+				var sub = plus.webview.create(subpages[i],subpages[i],sub_styles);
+				console.log("plus.webview.create");
+				if (i>0)
+				{
+					//初始化的时候，其余3个界面先隐藏
+					sub.hide();
+				}
+				else
+				{
+					//已经打开过了，加到数组，并且和之前的标志位合并
+					temp[subpages[i]] = "open";
+					mui.extend(isFirstOpen,temp);
+				}
+				//将四个子窗口加到主窗口上
+				nowWindow.append(sub);
+			}
+		});
+		var nowTaburl = subpages[0];
+		var nowTabid = "home";
+		var idArr = ["home","phone","mail","set"];
+		mui('.mui-bar-tab').on('tap','p',function(e){
+			console.log("111");
+			var id = this.getAttribute("id");
+			console.log(id);
+			var targetTab = "";
+			for (var i =0;i<4;i++)
+			{
+				if (id == idArr[i])
+				{
+					targetTab = subpages[i];
+					console.log("点击的目标标签",targetTab);
+				}
+			}
+			if (nowTaburl == targetTab)
+			{
+				return;
+			}
+			// if(mui.os.ios||aniShow[targetTab]){
+			// 	plus.webview.show(targetTab);
+			// }else{
+				//否则，使用fade-in动画，且保存变量
+				var temp = {};
+				temp[targetTab] = "true";
+				mui.extend(isFirstOpen,temp);
+				plus.webview.show(targetTab,"fade-in",300);
+			// }
+			plus.webview.hide(nowTaburl);
+			nowTaburl = targetTab;
+			nowTabid = id;
+		});
+	</script>
+</body>
+</html>

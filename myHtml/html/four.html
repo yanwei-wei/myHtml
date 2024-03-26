@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="../js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+		<div id = "all">
+			<h1 align="center">html与css学习笔记</h1>
+			<div id = "guding">
+				<a href="pic/logo.gif" title = "点我查看大图" ><img src="pic/logo.gif" alt= "固定位置" /></a>
+			</div>
+			<div id = "css">
+				<h2>css知识点</h2>
+				<ul>
+					<li>使用link标签来读取一个css文件，可以把它应用于多个网页，不需要书写style了</li>
+					<li>可以先对父类设置属性，那么父类下面的子项都会继承，如果想特殊化某一个子项，只需要把它单伶出来重新设置属性</li>
+					<li>html里加注释和css里加注释不一样，一个是&lt;!--。。。--&gt;一个是/*。。。*/</li>
+					<li>可以把p,h,blockquote 加入一个class类，这样就可以在css里对同一个class下的元素来改变布局。&lt;p class="notes"&gt;xxxxxxx&lt;/p&gt; <br />
+					如果要给同一个class的块元素设置属性，不必全部列出来，选择符只需要	.notes即可。一个元素可以放进多个类，用空格来分开</li>
+					<li>css里也可以对id来设置属性，选择符有所不同，使用#id的值</li>
+					<li><b>css里样式属性：<br />
+					color:用来设置文本元素的字体颜色<br />
+					background-color:元素的背景颜色<br />
+					text-align:文本左对齐右对齐居中<br />
+					font-weight:用来控制文本的粗细<br />
+					line-height:行间距<br />
+					letter-spacing:字间距<br />
+					font-size:字体大小<br />
+					border:元素周围加边框<br />
+					background-image:把图像放到元素的后面<br />
+					</b></li>
+					<li>font-family可以指定多个字体，如果电脑里没安装当前字体，会按照顺序继续往下找。<br />
+					font-size:选择xx-small,x-small,small,medium,large,x-large,xx-large里一种。<br />
+					给body用关键词来定义字体大小，如果body的子项需要修改大小，只需要设置为1.2em（1.2倍）或者120%，这样就关联起来了</li>
+					<li>div可以指定一个id，也可以加到一个class里，在css里可以设置所有div的h和p等，div h1 <br />
+					如果不想对所有div都生效，可以通过制定id来完成，#notes h1。也可以通过class来完成，.notes h1</li>
+					<li>补白padding，边界margin可以缩写，但顺序固定为：上右下左。四个值相同可以只写一个；上下相同，左右相同，可以写两个。</li>
+					<li>font的缩写顺序：font-style font-variant font-weight font-size/line-height font-family <br />
+					前三个可以任意组合，但是记得放在font-size之前，行间距是可选的，如果有要放在font-size后用/隔开，font-family字体系列名之间要加逗号隔开。</li>
+					<li>div是把块元素分成不同的逻辑部分，而span是把内联元素分成不同的逻辑部分</li>
+					<li><em>漂移是根据当前位置向左向右漂移。y坐标在上一个未偏移的元素下方。</em></li>
+				</ul>
+			</div>
+			<div class ="html" id = "top" >
+				<h2>html知识点</h2>
+		
+				<ul>
+					<li>注释:</li>
+					<li>&lt;head&gt;&lt;/head&gt;是网页标题的头部标记注释:</li>
+					<li>&lt;title&gt;&lt;/title&gt;是网页的标题</li>
+					<li>&lt;body&gt;&lt;/body&gt;是网页内容的标签，以下内容均放在body里</li>
+					<li>h1-h6是6个标题</li>
+					<li>&lt;p&gt;&lt;/p&gt;是指段落</li>
+					<li>&lt;pre&gt;&lt;/pre&gt;是保持输入的文本格式</li>
+					<li>或者在结尾输入 &lt;br /&gt; ,会换行</li>
+					<li><b>关于目录：每一个html文件默认读取的路径就是和他同级的路径。比如a.html在根目录的1文件夹里，那么我要调用根目录下的2文件夹里的b.pic，就需要先用..回到根目录，<br />
+					然后../2/b.pic </b></li>
+		
+					<li><b>a是跳转,&lt;a herf="second.html" title = "跳转到xxxxxx界面"&gt;xxxxxx&lt;/a&gt;,点击xxxxxx将会跳转到second.html这个界面<br />
+					xxxxxx会被下划线标记,xxxxxx可以是一个网址,title属性：鼠标悬停在xxxxxx上，会展示title内容<br />
+					herf="second.html#标记"，在second里添加a标签：&lt;a id = "标记"&gt;xxx&lt;/a&gt;点击则会跳到second.html中id所在地。<br />
+					也可以在当前html里用a标签，加一个id = "top "属性，然后在需要的地方用href = "#top" 可以点击回到这个属性所在地。返回顶部，到达尾部通常可以这么做。<br />
+					target属性：不写默认在当前窗口打开跳转界面，如果定义为_blank则会在新的窗口打开</b></li>
+		
+					<li><b>&lt;img&gt;标签 不需要标记结尾<br />
+					alt属性：图片损坏或者找不到资源的时候，用alt属性里内容提示用户<br />
+					<li><b>可以把图片做成一个缩略图，然后放进网页里，这样加载会更快。做一个点击查看图片详情的功能，点击图片，跳转对应的html文件。<br />
+					这个时候就需要先用a标签的href来做一个跳转，title，target标签都是可以用的。然后在a里加入img标签即可做到点击图片跳转。需要对图片加以说明通常这么做。<br />
+					如果只需要显示大图，那么完全可以用a标签的href指定要显示的图片路径，然后在a里加入缩略图的img标签，就可以做到点击查看大图了。</b></li>
+					</b></li>
+					<li>&lt;q&gt;&lt;/q&gt;是引用，q标签内的内容，会被加上双引号，通常用来引用一句话等简短内容</li>
+					<li>&lt;blockquote&gt;&lt;/blockquote&gt;块元素，里面必须放入以块元素包裹的内容，例如列表ol，ul或者p</li>
+					<li>我们可以吧q短引用放在blockquote里，但是把blockquote放进q里就没有意义了。</li>
+					<li>em标签是着重标签</li>
+					<li>ol 和 ul 分别代表有序列表和无序列表，ol封装，列表会显示1，2，3...,ul封装，列表前面是黑点。记得给每一个列表子项目加上 li标签</li>
+					<li>可以在列表里嵌套列表 </li>
+					<li>dl封装代表自定义列表，每个子项需要有一个dt（项限）和dd（描述）标签</li>
+					<li>strong标签会将内容加粗，即强调</li>
+					<li>address标签会将内容变斜体，一般用于地址</li>
+					<li>code标签会将内容变小，即让内容看上去更像代码</li>
+					<li>b是用来加粗文本的</li>
+					<li>内联元素应该放在块元素（h1-h6,p,blockquote）里,块元素绝对不能放到内联元素里,p里不能放块元素</li>
+					<li>xhtml 要求空元素要以空格结尾，并且需要加/</li>
+					<li>text-align设置对齐样式，只对块元素生效</li>
+					<li>table制作表格，首先以tr选择符开始一个行，th属性的单元格会加粗字体，因此th是表格的头，td是每一个普通的单元格，rowspan属性设置一个单元格占用几行，colspan设置一个单元格占几列。<br />
+					单元格里可以嵌套table，只需要在td里再加一个table就可以了。<br />
+					caption标签放在table标签下面，是表格的标题，summary属性是table的摘要<br/>
+					border-collapse:collapse; 消除表格里的补白，即消除每个单元格之间的空隙</li>
+					<li>list-style-type:更改列表的 点 字样，可以改为square，circle，默认为disc，黑色圆点。<br />
+					也可以用list-style-image,自定义列表的 点 字样为一张图片</li>
+				</ul>
+			</div>
+			<div>
+				<h2>JavaScript知识点</h2>
+		
+				<ul>
+					<li>push;pop是在数组结尾添加，删除一个元素</li>
+					<li>unshift;shift是在数组开头添加，删除一个元素</li>
+		
+				</ul>
+			</div>
+			<table summary="摘要">
+				<caption>这是表格的标题</caption>
+				<tr>
+					<th>t2</th>
+					<td class="row">2</td>
+					<td>3</td>
+					<td>4</td>
+					<td>5</td>
+				</tr>
+				<tr>
+					<th>t2</th>
+		
+					<td class="row">1</td>
+					<td colspan="2" rowspan="2">
+						<table>
+							<tr>
+								<th>1</th>
+								<th>2</td>
+							</tr>
+							<tr>
+								<td>11</td>
+								<td>22</td>
+							</tr>
+						</table>
+					</td>
+					<td>3</td>
+					<td>4</td>
+					<td>5</td>
+				</tr>
+				<tr>
+					<th>t2</th>
+		
+					<td class="row" >11</td>
+					<td>33</td>
+					<td>44</td>
+					<!-- <td>55</td> -->
+				</tr>
+				<tr>
+					<th>t2</th>
+		
+					<td class="row">111</td>
+					<td >222</td>
+					<td>333</td>
+					<td>444</td>
+					<td>555</td>
+				</tr>
+			</table>
+			<input type="text" name="fullname" />
+			<input type="radio" name="fullname" />
+			<input type="radio" name="fullname" />
+		
+		
+			<input type="checkbox" name="fullname" value="复选框" />
+		
+			<input type="submit" name="fullname" value="确定" />
+			<input type="button" value="confim" onclick="alert('dianji queding');" />
+		
+			<textarea name="输入框" rows="10" cols="20"></textarea>
+			<select name = "choice">
+				<option value = "aaaa">11</option>
+				<option value = "bbbbb">22</option>
+				<option value = "ccccc">33</option>
+		
+			</select>
+		
+			<h2><a id = "图片">图片要点</a></h2>
+			<p>
+				<img src="http://yanwei.free.idcfengye.com/pic/notes1.png" alt = "抱歉图片不翼而飞了。。。" />
+				<img src="pic/notes2.png" alt = "抱歉图片不翼而飞了。。。" />
+			</p>
+			<p><a href="#top">返回顶部</a></p>
+		</div>
+	</body>
+
+</html>

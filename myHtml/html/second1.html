@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>点击第4张图进来的</title>
+	<script src="../js/mui.js"></script>
+	<link href="../css/mui.css" rel="stylesheet"/>
+</head>
+<body>
+	
+	<div onclick="backhome()"><img src="../pic/back.png" alt="图片资源下载失败" /></div>
+	
+	<h1><a href = "notesOfMyStudy.html">点击进入笔记界面</a></h1>
+	<script>
+		// mui.init({
+		// 	beforeback: function() {
+		// 		console.log("1111111");
+		   
+		// 		var list = plus.webview.currentWebview().opener();　　　　
+		// 		//refresh是A页面自定义事件
+		// 		mui.fire(list, 'refresh');
+		// 		//返回true,继续页面关闭逻辑
+		// 		return true;
+		// 	}
+		// });
+		var loadSuccess = false;
+		mui.plusReady(function(){
+		    loadSuccess = true;
+		});
+		function backhome(){
+			if(loadSuccess == true)
+			{
+				var list = plus.webview.currentWebview().opener();
+				//refresh是A页面自定义事件
+				plus.webview.currentWebview().close();
+				list.reload(true); 
+			}
+		}
+	</script>
+</body>
+</html>
